@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.dao.CourseDao">
+
+	<sql id="courseColums">
+		cid,cno,cname,credit,bid,bno,bname
+	</sql>
+	
+	<!-- 查询课程的Map -->
+	<resultMap type="Course" id="CourseMap">
+		<id column="cid" property="cid" />
+		<result column="cno" property="cno" />
+		<result column="cname" property="cname" />
+		<result column="credit" property="credit" />
+		<collection property="list" ofType="Banji">
+			<id column="bid" property="bid" />
+			<result column="bno" property="bno" />
+			<result column="bname" property="bname" />
+		</collection>
+	</resultMap>
+	
+	<!-- 查询课程的数量 -->
+	<select id="totalSize" resultType="int">
+		SELECT COUNT(*) FROM course;
+	</select>
+	
+	<!-- 查询班级分页但没有条件 -->
+	<select id="pageList" parameterType="int" resultMap="CourseMap">
+		SELECT  <include refid="courseColums"/> 
+		FROM course LEFT JOIN banji_course ON cid=course_id 
+		LEFT JOIN banji ON banji_id=bid LIMIT #{pageIndex},#{pageSize};
+	</select>
+	
+	<!-- 获得课程的班级数 -->
+	<select id="getTotalBanjis" resultType="Course">
+		SELECT cid,cname,COUNT(*) as 'totalBanjis' FROM course 
+		LEFT JOIN banji_course ON cid=course_id 
+		LEFT JOIN banji ON banji_id=bid GROUP BY cid;
+	</select>
+	
+	<!-- 获得课程的人数 -->
+	<select id="getTotalPersons" resultType="Course">
+		SELECT cid,cname,COUNT(*) as 'totalPersons' FROM course 
+		LEFT JOIN banji_course ON cid=course_id 
+		LEFT JOIN banji ON banji_id=bid 
+		LEFT JOIN student ON sbanji_id=bid
+		GROUP BY cid;
+	</select>
+	
+	<!-- 根据条件查询符合课程数 -->
+	<select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
+		SELECT COUNT(*) FROM course 
+		<where>
+			<if test="no!=null  and !&quot;&quot;.equals(no.trim())">
+				and cno like '%${no}%'
+			</if>
+			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
+				and cname like '%${name}%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据条件查询分页 -->
+	<select id="pageListByCondition" parameterType="SearchByCondition" resultMap="CourseMap">
+		SELECT <include refid="courseColums"/> 
+		FROM course LEFT JOIN banji_course ON cid=course_id 
+		LEFT JOIN banji ON banji_id=bid 
+		<where>
+			<if test="no!=null  and !&quot;&quot;.equals(no.trim())">
+				and cno like '%${no}%'
+			</if>
+			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
+				and cname like '%${name}%'
+			</if>
+		</where> 
+		LIMIT #{pageIndex},#{pageSize};
+	</select>
+	
+	<!-- 添加课程 -->
+	<insert id="addCourse" parameterType="Course" >
+		INSERT INTO course (cno,cname) VALUES (#{cno},#{cname});
+	</insert>
+	
+	<!-- 根据id查询课程 -->
+	<select id="findById" parameterType="int" resultType="Course">
+		select cid,cno,cname from course where cid=#{id};
+	</select>
+	
+	<!-- 更新课程信息 -->
+	<update id="update" parameterType="Course">
+		update course
+		<set>
+			<if test="cno!=null  and !&quot;&quot;.equals(cno.trim())">
+				cno=#{cno},
+			</if>
+			<if test="cname!=null  and !&quot;&quot;.equals(cname.trim())">
+				cname=#{cname},
+			</if>
+		</set> 
+		where cid=#{cid};
+	</update>
+
+	<!-- 根据id删除课程 -->
+	<delete id="delCourse" parameterType="int" >
+		delete from course where cid=#{id};
+	</delete>
+</mapper>

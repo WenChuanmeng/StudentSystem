@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.dao.StudentDao">
+    
+    <sql id="stuColums">
+    	sid,sno,sname,sage,sgender,saddress,sbirthday,bid,bno,bname
+    </sql>
+    
+    <!-- 查找学生和班级的Map -->
+    <resultMap type="Student" id="StudentMap">
+    	<id column="sid" property="sid" />
+    	<result column="sno" property="sno" />
+    	<result column="sname" property="sname" />
+    	<result column="sage" property="sage" />
+    	<result column="sgender" property="sgender" />
+    	<result column="saddress" property="saddress" />
+    	<result column="sbirthday" property="sbirthday" javaType="java.sql.Date" jdbcType="DATE" />
+    	<association property="banji" javaType="Banji">
+    		<id column="bid" property="bid"/>
+    		<result column="bno" property="bno" />
+    		<result column="bname" property="bname"/>
+    	</association>
+    </resultMap>
+    
+    
+    
+    <!-- 查找所有的学生 -->
+    <select id="findAll" resultMap="StudentMap">
+    	SELECT  <include refid="stuColums"></include>
+    	FROM student LEFT JOIN banji ON sbanji_id=bid ORDER BY sno;
+    </select>
+    
+    <!-- 查询有多少学生 -->
+    <select id="totalSize" resultType="int">
+    	SELECT COUNT(*) FROM student;
+    </select>
+    
+    <!-- 根据分页查询学生信息 -->
+    <select id="pageList" parameterType="PageBean" resultMap="StudentMap" >
+    	SELECT <include refid="stuColums"></include> 
+    	FROM student LEFT JOIN banji ON sbanji_id=bid ORDER BY sid 
+    	LIMIT #{pageIndex},#{pageSize};
+    </select>
+    
+     <!-- 根据条件查询有多少学生 -->
+    <select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
+    	SELECT COUNT(*) FROM student
+    	<where>
+    		<if test="student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
+    			and sname like '%${student.sname}%'
+    		</if>
+    		<if test="student.sage!=null and !&quot;&quot;.equals(student.sname.trim())">
+    			and sage=#{age}
+    		</if>
+    		<if test="student.sgender!=null and !&quot;&quot;.equals(student.sname.trim())">
+    			and sgender=#{student.sgender}
+    		</if>
+    		<if test="student.saddress!=null and !&quot;&quot;.equals(student.sname.trim())">
+    			and saddress=#{student.saddress}
+    		</if>
+    		<if test="student.sbirthday!=null and !&quot;&quot;.equals(student.sname.trim())">
+    			and sbirthday=#{student.sbirthday}
+    		</if>
+    		<if test="student.sbanji_id!=null and !&quot;&quot;.equals(student.sname.trim())">
+    			and sbanji_id=#{student.sbanji_id}
+    		</if>
+    	</where>
+    </select>
+    
+    <!-- 根据分页查询学生信息 -->
+    <select id="pageListByCondition" parameterType="SearchByCondition" resultMap="StudentMap" >
+    	SELECT <include refid="stuColums"></include> 
+    	FROM student LEFT JOIN banji ON sbanji_id=bid 
+    	<where>
+    		<if test="name!=null and name!=''">
+    			and sname like '%${name}%'
+    		</if>
+    		<if test="age!=null and age!=''">
+    			and sage=#{age}
+    		</if>
+    		<if test="gender!=null and gender!=''">
+    			and sgender=#{gender}
+    		</if>
+    		<if test="address!=null and address!=''">
+    			and saddress=#{address}
+    		</if>
+    		<if test="birthday!=null and birthday!=''">
+    			and sbirthday=#{birthday}
+    		</if>
+    		<if test="banji_id!=null and banji_id!=''">
+    			and sbanji_id=#{banji_id}
+    		</if>
+    	</where>
+    	ORDER BY sid LIMIT #{pageIndex},#{pageSize};
+    </select>
+    
+    <!-- 添加学生 -->
+    <insert id="addStudent" parameterType="Student" >
+    	INSERT INTO student (sno,sname,sage,sgender,saddress,sbirthday,sbanji_id) 
+    	VALUES (#{sno},#{sname},#{sage},#{sgender},#{saddress},#{sbirthday},#{banji.bid});
+    </insert>
+    
+    <!-- 根据id查找学生信息 -->
+    <select id="findById" parameterType="int" resultMap="StudentMap">
+    	SELECT<include refid="stuColums"></include> 
+    	FROM student LEFT JOIN banji ON sbanji_id=bid WHERE sid=#{id};
+    </select>
+    
+    <!-- 跟新学生信息 -->
+    <update id="update" parameterType="Student" >
+    	UPDATE student 
+    	<set>
+    		<if test="sno!=null">
+    			sno=#{sno},
+    		</if>
+    		<if test="sname!=null">
+    			sname=#{sname},
+    		</if>
+    		<if test="sage!=null">
+    			sage=#{sage},
+    		</if>
+    		<if test="sgender!=null">
+    			sgender=#{sgender},
+    		</if>
+    		<if test="saddress!=null">
+    			saddress=#{saddress},
+    		</if>
+    		<if test="sbirthday!=null">
+    			sbirthday=#{sbirthday},
+    		</if>
+    		<if test="sbanji_id!=null">
+    			sbanji_id=#{sbanji_id},
+    		</if>
+    	</set>
+    	 WHERE sid=6;
+    </update>
+    
+    <!-- 根据id删除学生 -->
+    <delete id="delStudent" parameterType="int" >
+    	DELETE FROM student WHERE sid=#{id};
+    </delete>
+    
+</mapper>

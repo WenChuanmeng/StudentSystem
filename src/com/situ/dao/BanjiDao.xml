@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.dao.BanjiDao">
+
+	<sql id="banjiColums">
+		bid,bno,bname,cid,cno,cname,credit
+	</sql>
+	
+	<!-- 班级信息的Map -->
+	<resultMap type="Banji" id="BanjiMap">
+		<id column="bid" property="bid" />
+		<result column="bno" property="bno" />
+		<result column="bname" property="bname" />
+		<collection property="list" ofType="Course" >
+			<id column="cid" property="cid" />
+			<result column="cno" property="cno" />
+			<result column="cname" property="cname" />
+			<result column="credit" property="credit" />
+		</collection>
+	</resultMap>
+	
+    <!-- 查找所有的班级 -->
+    <select id="findAll" resultType="Banji" >
+    	SELECT bid,bno,bname FROM banji;
+    </select>
+    
+    <!-- 查询班级的数量 -->
+    <select id="totalSize" resultType="int" >
+    	SELECT COUNT(*) FROM banji;
+    </select>
+    
+    <!-- 查询班级并进行分页  -->
+    <select id="pageList" parameterType="int" resultMap="BanjiMap">
+    	SELECT <include refid="banjiColums"/> 
+		FROM banji LEFT JOIN banji_course ON bid=banji_id
+		LEFT JOIN course ON course_id=cid;
+    </select>
+    
+    <!-- 获得班级的总人数 -->
+    <select id="getBanjiPersonNum" resultType="Banji">
+    	SELECT bid,bname,COUNT(*) AS 'totalPersonNum' 
+    	FROM banji INNER JOIN student ON bid=sbanji_id GROUP BY bid;
+    </select>
+    
+    <!-- 根据条件获得班级的数量 -->
+    <select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
+    	SELECT COUNT(*) FROM banji
+    	<where>
+    		<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
+    			and bname like '%${name}%'
+    		</if>
+    	</where>
+    </select>
+    
+    <!-- 根据条件对班级进行分页 -->
+    <select id="pageListByCondition" parameterType="SearchByCondition" resultMap="BanjiMap">
+    	SELECT <include refid="banjiColums"/> 
+		FROM banji LEFT JOIN banji_course ON bid=banji_id
+		LEFT JOIN course ON course_id=cid 
+		<where>
+			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
+    			and bname like '%${name}%'
+    		</if>
+		</where> 
+		LIMIT #{pageIndex},#{pageSize};
+    </select>
+    
+    <!-- 根据id删除班级 -->
+    <delete id="delBanji" parameterType="int">
+    	DELETE FROM banji WHERE bid=#{id};
+    </delete>
+    
+    <!-- 根据id查找班级 -->
+    <select id="findById" parameterType="int" resultType="Banji" >
+    	SELECT bid,bno,bname FROM banji WHERE bid=#{id};
+    </select>
+    
+    <!-- 修改班级 -->
+    <update id="update" parameterType="Banji">
+    	update banji 
+    	<set>
+    		<if test="bno!=null  and !&quot;&quot;.equals(bno.trim())">
+    			bno=#{bno},
+    		</if>
+    		<if test="bname!=null  and !&quot;&quot;.equals(bname.trim())">
+    			bname=#{bname},
+    		</if>
+    	</set>
+    	where bid=#{bid}
+    </update>
+    
+    <!-- 添加班级 -->
+    <insert id="addBanJi" parameterType="Banji" >
+    	INSERT INTO banji (bno,bname) VALUES (#{bno},#{bname});
+    </insert>
+    
+</mapper>
