@@ -53,11 +53,11 @@
 	<select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
 		SELECT COUNT(*) FROM course 
 		<where>
-			<if test="no!=null  and !&quot;&quot;.equals(no.trim())">
-				and cno like '%${no}%'
+			<if test=" course!=null and course.cno!=null  and !&quot;&quot;.equals(course.cno.trim())">
+				and cno like '%${course.cno}%'
 			</if>
-			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
-				and cname like '%${name}%'
+			<if test=" course!=null and course.cname!=null  and !&quot;&quot;.equals(course.cname.trim())">
+				and cname like '%${course.cname}%'
 			</if>
 		</where>
 	</select>
@@ -68,11 +68,11 @@
 		FROM course LEFT JOIN banji_course ON cid=course_id 
 		LEFT JOIN banji ON banji_id=bid 
 		<where>
-			<if test="no!=null  and !&quot;&quot;.equals(no.trim())">
-				and cno like '%${no}%'
+			<if test=" course!=null and course.cno!=null  and !&quot;&quot;.equals(course.cno.trim())">
+				and cno like '%${course.cno}%'
 			</if>
-			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
-				and cname like '%${name}%'
+			<if test=" course!=null and course.cname!=null  and !&quot;&quot;.equals(course.cname.trim())">
+				and cname like '%${course.cname}%'
 			</if>
 		</where> 
 		LIMIT #{pageIndex},#{pageSize};

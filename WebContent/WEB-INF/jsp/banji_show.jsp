@@ -53,9 +53,14 @@
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
 						<label for="exampleInputName2">班级</label>
-					    <input type="text" name="name" value="${condition.name }" class="form-control" id="exampleInputName2" placeholder="班级">
+					    <input type="text" name="banji.bno" value="${condition.banji.bno }" class="form-control" id="exampleInputName2" placeholder="班级">
 				 	</div>
-				 	<button type="submit" class="btn btn-default">查询</button>
+					<div class="form-group"  >
+						<label for="exampleInputName2">班级</label>
+					    <input type="text" name="banji.bname" value="${condition.banji.bname }" class="form-control" id="exampleInputName2" placeholder="班级">
+				 	</div>
+				 	<button type="submit" class="btn btn-primary">查询</button>
+				 	<button type="reset" class="btn btn-default">重置</button>
 				</form>
 				<!-- 查询条件 结束 -->
 				<!-- 学生列表开始 -->

@@ -53,11 +53,11 @@
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
 						<label for="exampleInputName2">课程编号</label>
-					    <input type="text" name="no" value="${condition.name }" class="form-control" id="exampleInputName2" placeholder="编号">
+					    <input type="text" name="course.cno" value="${condition.course.cno }" class="form-control" id="exampleInputName2" placeholder="编号">
 				 	</div>
 					<div class="form-group"  >
 						<label for="exampleInputName2">课程</label>
-					    <input type="text" name="name" value="${condition.name }" class="form-control" id="exampleInputName2" placeholder="课程名">
+					    <input type="text" name="course.cname" value="${condition.course.cname }" class="form-control" id="exampleInputName2" placeholder="课程名">
 				 	</div>
 				 	<button type="submit" class="btn btn-primary">查询</button>
 				 	<button type="reset" class="btn  btn-default">重置</button>

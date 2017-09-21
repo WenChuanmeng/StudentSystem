@@ -48,8 +48,11 @@
     <select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
     	SELECT COUNT(*) FROM banji
     	<where>
-    		<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
-    			and bname like '%${name}%'
+    		<if test=" banji!=null and banji.bno!=null  and !&quot;&quot;.equals(banji.bno.trim())">
+    			and bno like '%${banji.bno}%'
+    		</if>
+			<if test=" banji!=null and banji.bname!=null  and !&quot;&quot;.equals(banji.bname.trim())">
+    			and bname like '%${banji.bname}%'
     		</if>
     	</where>
     </select>
@@ -60,8 +63,11 @@
 		FROM banji LEFT JOIN banji_course ON bid=banji_id
 		LEFT JOIN course ON course_id=cid 
 		<where>
-			<if test="name!=null  and !&quot;&quot;.equals(name.trim())">
-    			and bname like '%${name}%'
+			<if test=" banji!=null and banji.bno!=null  and !&quot;&quot;.equals(banji.bno.trim())">
+    			and bno like '%${banji.bno}%'
+    		</if>
+			<if test=" banji!=null and banji.bname!=null  and !&quot;&quot;.equals(banji.bname.trim())">
+    			and bname like '%${banji.bname}%'
     		</if>
 		</where> 
 		LIMIT #{pageIndex},#{pageSize};

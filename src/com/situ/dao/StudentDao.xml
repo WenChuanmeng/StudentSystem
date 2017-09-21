@@ -48,22 +48,22 @@
     <select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
     	SELECT COUNT(*) FROM student
     	<where>
-    		<if test="student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
+    		<if test=" student!=null and student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
     			and sname like '%${student.sname}%'
     		</if>
-    		<if test="student.sage!=null and !&quot;&quot;.equals(student.sname.trim())">
-    			and sage=#{age}
+    		<if test=" student!=null and student.sage!=null and !&quot;&quot;.equals(student.sage.trim())">
+    			and sage=#{student.sage}
     		</if>
-    		<if test="student.sgender!=null and !&quot;&quot;.equals(student.sname.trim())">
+    		<if test=" student!=null and student.sgender!=null and !&quot;&quot;.equals(student.sgender.trim())">
     			and sgender=#{student.sgender}
     		</if>
-    		<if test="student.saddress!=null and !&quot;&quot;.equals(student.sname.trim())">
+    		<if test=" student!=null and student.saddress!=null and !&quot;&quot;.equals(student.saddress.trim())">
     			and saddress=#{student.saddress}
     		</if>
-    		<if test="student.sbirthday!=null and !&quot;&quot;.equals(student.sname.trim())">
+    		<if test=" student!=null and student.sbirthday!=null and !&quot;&quot;.equals(student.sbirthday.trim())">
     			and sbirthday=#{student.sbirthday}
     		</if>
-    		<if test="student.sbanji_id!=null and !&quot;&quot;.equals(student.sname.trim())">
+    		<if test=" student!=null and student.sbanji_id!=null">
     			and sbanji_id=#{student.sbanji_id}
     		</if>
     	</where>
@@ -74,23 +74,23 @@
     	SELECT <include refid="stuColums"></include> 
     	FROM student LEFT JOIN banji ON sbanji_id=bid 
     	<where>
-    		<if test="name!=null and name!=''">
-    			and sname like '%${name}%'
+    		<if test=" student!=null and student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
+    			and sname like '%${student.sname}%'
     		</if>
-    		<if test="age!=null and age!=''">
-    			and sage=#{age}
+    		<if test=" student!=null and student.sage!=null and !&quot;&quot;.equals(student.sage.trim())">
+    			and sage=#{student.sage}
     		</if>
-    		<if test="gender!=null and gender!=''">
-    			and sgender=#{gender}
+    		<if test=" student!=null and student.sgender!=null and !&quot;&quot;.equals(student.sgender.trim())">
+    			and sgender=#{student.sgender}
     		</if>
-    		<if test="address!=null and address!=''">
-    			and saddress=#{address}
+    		<if test=" student!=null and student.saddress!=null and !&quot;&quot;.equals(student.saddress.trim())">
+    			and saddress=#{student.saddress}
     		</if>
-    		<if test="birthday!=null and birthday!=''">
-    			and sbirthday=#{birthday}
+    		<if test=" student!=null and student.sbirthday!=null and !&quot;&quot;.equals(student.sbirthday.trim())">
+    			and sbirthday=#{student.sbirthday}
     		</if>
-    		<if test="banji_id!=null and banji_id!=''">
-    			and sbanji_id=#{banji_id}
+    		<if test=" student!=null and student.sbanji_id!=null">
+    			and sbanji_id=#{student.sbanji_id}
     		</if>
     	</where>
     	ORDER BY sid LIMIT #{pageIndex},#{pageSize};
