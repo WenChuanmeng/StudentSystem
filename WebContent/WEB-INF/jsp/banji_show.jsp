@@ -52,8 +52,8 @@
 					<!-- 用于查找+分页 记录反的页数 -->
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
-						<label for="exampleInputName2">班级</label>
-					    <input type="text" name="banji.bno" value="${condition.banji.bno }" class="form-control" id="exampleInputName2" placeholder="班级">
+						<label for="exampleInputName2">班级编号</label>
+					    <input type="text" name="banji.bno" value="${condition.banji.bno }" class="form-control" id="exampleInputName2" placeholder="班级编号">
 				 	</div>
 					<div class="form-group"  >
 						<label for="exampleInputName2">班级</label>

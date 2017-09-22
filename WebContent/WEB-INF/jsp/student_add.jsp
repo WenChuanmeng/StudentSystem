@@ -33,7 +33,7 @@
 				<form style="margin-top: 10px;" action="${pageContext.request.contextPath }/student/addStudent.action" method="post" >
 				<div class="form-group">
 					   <label for="exampleInputEmail1">学号</label>
-					   <input type="text" name="sno" class="form-control" id="exampleInputEmail1" placeholder="姓名">
+					   <input type="text" name="sno" class="form-control" id="exampleInputEmail1" placeholder="学号">
 				  </div>
 				  <div class="form-group">
 					   <label for="exampleInputEmail1">姓名</label>

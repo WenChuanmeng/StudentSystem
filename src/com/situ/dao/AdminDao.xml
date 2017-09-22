@@ -18,7 +18,7 @@
 	<select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
 		select COUNT(*) from user
 		<where>
-			<if test="user!=null and user.uname!=null  and !&quot;&quot;.equals(user.unam.trim())">
+			<if test="user!=null and user.uname!=null  and !&quot;&quot;.equals(user.uname.trim())">
 				and uname like '${user.uname}'
 			</if>
 		</where>

@@ -35,11 +35,11 @@
 				<form style="margin-top: 10px;" action="${pageContext.request.contextPath }/user/addUser.action" method="post" >
 					<div class="form-group">
 					   <label for="exampleInputEmail1">用户名</label>
-					   <input type="text" name="uname" class="form-control" id="exampleInputEmail1" placeholder="姓名">
+					   <input type="text" name="uname" class="form-control" id="exampleInputEmail1" placeholder="用户名">
 				  </div>
 				  <div class="form-group">
 					  <label for="exampleInputPassword1">密码</label>
-					  <input type="text" name="password" class="form-control" id="exampleInputPassword1" placeholder="年龄">
+					  <input type="text" name="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
 				  </div>
 				  <div class="form-group">
 						<label for="exampleInputName2">权限</label>

@@ -38,7 +38,7 @@
 				<form style="margin-top: 10px;" action="${pageContext.request.contextPath }/course/addCourse.action" method="post" >
 					<div class="form-group">
 					   <label for="exampleInputEmail1">课程编号</label>
-					   <input type="text" name="cno" class="form-control" id="exampleInputEmail1" placeholder="课程名">
+					   <input type="text" name="cno" class="form-control" id="exampleInputEmail1" placeholder="课程编号">
 				  </div>
 					<div class="form-group">
 					   <label for="exampleInputEmail1">课程</label>

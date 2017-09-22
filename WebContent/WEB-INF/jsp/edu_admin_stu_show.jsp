@@ -65,7 +65,7 @@
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
 						<label for="exampleInputName2">学号</label>
-					    <input type="text" name="sno" value="${student.sno }" class="form-control" id="exampleInputName2" placeholder="班级">
+					    <input type="text" name="sno" value="${student.sno }" class="form-control" id="exampleInputName2" placeholder="学号">
 				 	<button type="submit" class="btn btn-default">查询</button>
 				 	</div>
 				</form>
