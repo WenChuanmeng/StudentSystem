@@ -37,7 +37,8 @@ public class StudentServiceImpl implements IStudentService {
 		int totalPage = (int) Math.ceil(1.0 * totalSize / pageSize);
 		pageBean.setTotalPage(totalPage);
 		pageBean.setTotalSize(totalSize);
-		List<Student> list = studentDao.pageList(pageBean);
+		int index = (pageIndex - 1) * pageSize;
+		List<Student> list = studentDao.pageList(index,pageSize);
 		pageBean.setList(list);
 		return pageBean;
 	}
@@ -101,6 +102,24 @@ public class StudentServiceImpl implements IStudentService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean deletAll(Integer[] selectIds) {
+		
+		int result = 0;
+		
+		for (int i = 0; i < selectIds.length; i++) {
+			studentDao.delStudent(selectIds[i]);
+			result++;
+		}
+		
+		if (result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	

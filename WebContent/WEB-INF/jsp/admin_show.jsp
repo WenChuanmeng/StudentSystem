@@ -26,7 +26,7 @@
 	function delStudent(id) {
 		var isDel = confirm("确定删除？");
 		if (isDel) {
-			location.href="${pageContext.request.contextPath }/user?method=delUser&id=" + id;
+			location.href="${pageContext.request.contextPath }/user/delUser.action?id=" + id;
 		}
 	}
 </script>
@@ -40,26 +40,26 @@
 			<!-- 左边导航栏开始  -->
 			<div class="col-md-2" >
 				<ul class="nav nav-pills nav-stacked">
-					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user?method=pageList">用户管理</a></li>
-				    <li role="presentation"><a href="${pageContext.request.contextPath }/user?method=toAddUser">添加用户</a></li>
-				    <li role="presentation"><a href="${pageContext.request.contextPath }/user?method=onlineUser">在线用户</a></li>
+					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user/pageList.action">用户管理</a></li>
+				    <li role="presentation"><a href="${pageContext.request.contextPath }/user/toAddUser.action">添加用户</a></li>
+				    <li role="presentation"><a href="${pageContext.request.contextPath }/user/onlineUser.action">在线用户</a></li>
 				</ul>
 			</div>
 			<!-- 左边导航栏结束  -->
 			<!-- 右边栏开始  -->
 			<div class="col-md-10">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user?method=pageList">用户管理</a></li>
-					<li role="presentation"><a href="${pageContext.request.contextPath }/user?method=toAddUser">添加用户</a></li>
-					<li role="presentation"><a href="${pageContext.request.contextPath }/user?method=onlineUser">在线用户</a></li>
+					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user/pageList.action">用户管理</a></li>
+					<li role="presentation"><a href="${pageContext.request.contextPath }/user/toAddUser.action">添加用户</a></li>
+					<li role="presentation"><a href="${pageContext.request.contextPath }/user/onlineUser.action">在线用户</a></li>
 				</ul>
 				<!-- 查询条件 开始 -->
-				<form id="searchForm" action="${pageContext.request.contextPath}/user?method=seacherByCondition" method="post" class="form-inline" style="float: left; margin-top: 10px;margin-bottom: 10px;" >
+				<form id="searchForm" action="${pageContext.request.contextPath}/user/seacherByCondition.action" method="post" class="form-inline" style="float: left; margin-top: 10px;margin-bottom: 10px;" >
 					<!-- 用于查找+分页 记录反的页数 -->
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
 						<label for="exampleInputName2">用户名</label>
-					    <input type="text" name="userName" value="${condition.name }" class="form-control" id="exampleInputName2" placeholder="用户名">
+					    <input type="text" name="user.uname" value="${condition.user.uname }" class="form-control" id="exampleInputName2" placeholder="用户名">
 				 	</div>
 					<button type="submit" class="btn btn-default">查询</button>
 				</form>
@@ -75,11 +75,11 @@
 					</tr>
 					<c:forEach items="${pageBean.list }" var="user">
 						<tr>
-							<td>${user.id }</td>
-							<td>${user.name }</td>
+							<td>${user.uid }</td>
+							<td>${user.uname }</td>
 							<td>${user.password }</td>
-							<td><a href="javascript:delStudent(${user.id });">删除</a></td>
-							<td><a href="${pageContext.request.contextPath}/user?method=toUpdate&id=${user.id}" >修改</a></td>
+							<td><a href="javascript:delStudent(${user.uid });">删除</a></td>
+							<td><a href="${pageContext.request.contextPath}/user/toUpdate.action?id=${user.uid}" >修改</a></td>
 						</tr>
 					</c:forEach>
 				</table>

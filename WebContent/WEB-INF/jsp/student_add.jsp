@@ -45,8 +45,13 @@
 				  </div>
 				  <div class="form-group">
 					  <label for="exampleInputPassword1">性别</label>
-					  <input type="text" name="sgender" class="form-control" id="exampleInputPassword1" placeholder="性别">
-				  </div>
+						<select class="form-control"  name="sgender" >
+							<option value="" >请选择</option>
+							<option value="男" >男</option>								
+							<option value="女" >女</option>								
+						</select>
+				 	</div>
+				  
 				  <div class="form-group">
 					  <label for="exampleInputPassword1">地址</label>
 					  <input type="text" name="saddress" class="form-control" id="exampleInputPassword1" placeholder="地址">
@@ -64,9 +69,9 @@
 							</c:forEach>
 						</select>
 				 	</div>
-				  
-				  
 				  <button type="submit" class="btn btn-primary">Submit</button>
+				  </div>
+				  
 				</form>
 				<!-- 添加学生 结束 -->
 			</div>

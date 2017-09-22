@@ -38,10 +38,10 @@
     </select>
     
     <!-- 根据分页查询学生信息 -->
-    <select id="pageList" parameterType="PageBean" resultMap="StudentMap" >
+    <select id="pageList" parameterType="int" resultMap="StudentMap" >
     	SELECT <include refid="stuColums"></include> 
     	FROM student LEFT JOIN banji ON sbanji_id=bid ORDER BY sid 
-    	LIMIT #{pageIndex},#{pageSize};
+    	LIMIT #{index},#{pageSize};
     </select>
     
      <!-- 根据条件查询有多少学生 -->
@@ -51,7 +51,7 @@
     		<if test=" student!=null and student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
     			and sname like '%${student.sname}%'
     		</if>
-    		<if test=" student!=null and student.sage!=null and !&quot;&quot;.equals(student.sage.trim())">
+    		<if test=" student!=null and student.sage!=null">
     			and sage=#{student.sage}
     		</if>
     		<if test=" student!=null and student.sgender!=null and !&quot;&quot;.equals(student.sgender.trim())">
@@ -60,7 +60,7 @@
     		<if test=" student!=null and student.saddress!=null and !&quot;&quot;.equals(student.saddress.trim())">
     			and saddress=#{student.saddress}
     		</if>
-    		<if test=" student!=null and student.sbirthday!=null and !&quot;&quot;.equals(student.sbirthday.trim())">
+    		<if test=" student!=null and student.sbirthday!=null">
     			and sbirthday=#{student.sbirthday}
     		</if>
     		<if test=" student!=null and student.sbanji_id!=null">
@@ -77,7 +77,7 @@
     		<if test=" student!=null and student.sname!=null  and !&quot;&quot;.equals(student.sname.trim())">
     			and sname like '%${student.sname}%'
     		</if>
-    		<if test=" student!=null and student.sage!=null and !&quot;&quot;.equals(student.sage.trim())">
+    		<if test=" student!=null and student.sage!=null">
     			and sage=#{student.sage}
     		</if>
     		<if test=" student!=null and student.sgender!=null and !&quot;&quot;.equals(student.sgender.trim())">
@@ -86,7 +86,7 @@
     		<if test=" student!=null and student.saddress!=null and !&quot;&quot;.equals(student.saddress.trim())">
     			and saddress=#{student.saddress}
     		</if>
-    		<if test=" student!=null and student.sbirthday!=null and !&quot;&quot;.equals(student.sbirthday.trim())">
+    		<if test=" student!=null and student.sbirthday!=null">
     			and sbirthday=#{student.sbirthday}
     		</if>
     		<if test=" student!=null and student.sbanji_id!=null">

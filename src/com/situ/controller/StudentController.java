@@ -136,6 +136,15 @@ public class StudentController {
 		return "redirect:pageList.action";
 	}
 	
+	//批量删除
+	@RequestMapping("deletAll")
+	private String deletAll(Integer[] selectIds) {
+		
+		boolean result = studentService.deletAll(selectIds);
+		return "redirect:pageList.action";
+		
+	}
+	
 	//获得所有班级
 	private void getBanji(Model model) {
 		

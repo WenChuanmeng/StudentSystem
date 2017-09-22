@@ -55,4 +55,11 @@ public interface IStudentService {
 	 */
 	public boolean delStudent(int id);
 
+	/**
+	 * 批量删除
+	 * @param selectIds
+	 * @return boolean
+	 */
+	public boolean deletAll(Integer[] selectIds);
+
 }

@@ -17,18 +17,7 @@
 		width: 80px;
 	}
 </style>
-<script type="text/javascript">
-	function goPage(pageIndex) {
-		$("#pageIndex").val(pageIndex);
-		$("#searchForm").submit();
-	}
-	
-	function delStudent(id) {
-		var isDel = confirm("确定删除？");
-		if (isDel) {
-			location.href="${pageContext.request.contextPath }/user?method=delUser&id=" + id;
-		}
-	}
+
 </script>
 </head>
 <body>
@@ -40,18 +29,18 @@
 			<!-- 左边导航栏开始  -->
 			<div class="col-md-2" >
 				<ul class="nav nav-pills nav-stacked">
-					<li role="presentation" ><a href="${pageContext.request.contextPath }/user?method=pageList">用户管理</a></li>
-					<li role="presentation" ><a href="${pageContext.request.contextPath }/user?method=toAddUser">添加用户</a></li>
-				    <li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user?method=onlineUser">在线用户</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/user/pageList.action">用户管理</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/user/toAddUser.action">添加用户</a></li>
+				    <li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user/onlineUser.action">在线用户</a></li>
 				</ul>
 			</div>
 			<!-- 左边导航栏结束  -->
 			<!-- 右边栏开始  -->
 			<div class="col-md-10">
 				<ul class="nav nav-tabs">
-					<li role="presentation" ><a href="${pageContext.request.contextPath }/user?method=pageList">用户管理</a></li>
-					<li role="presentation" ><a href="${pageContext.request.contextPath }/user?method=toAddUser">添加用户</a></li>
-				    <li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user?method=onlineUser">在线用户</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/user/pageList.action">用户管理</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/user/toAddUser.action">添加用户</a></li>
+				    <li role="presentation" class="active"><a href="${pageContext.request.contextPath }/user/onlineUser.action">在线用户</a></li>
 				</ul>
 				<!-- 查询条件 开始 -->
 				
@@ -65,8 +54,8 @@
 					</tr>
 					<c:forEach items="${onlineUserList }" var="user">
 						<tr>
-							<td>${user.id }</td>
-							<td>${user.name }</td>
+							<td>${user.uid }</td>
+							<td>${user.uname }</td>
 							<td>${user.password }</td>
 							
 						</tr>

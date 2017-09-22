@@ -29,11 +29,11 @@
 		}
 	}
 	
-	function delCourse(id) {
+	function delCourse(bid,cid) {
 		
 		var isdDel = confirm("确定删除？");
 		if (isdDel) {
-			location.href="${pageContext.request.contextPath }/eduAdmin/delCourse.action?id=" + id;
+			location.href="${pageContext.request.contextPath }/eduAdmin/delCourse.action?bid=" + bid + "&cid=" + cid;
 		}
 	}
 	
@@ -48,6 +48,7 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/eduAdmin/pageList.action">班级选课</a></li>
 				    <li role="presentation"><a href="${pageContext.request.contextPath }/eduAdmin/toBanjiAddCourse.action">添加课程</a></li>
+				    <li role="presentation"><a href="${pageContext.request.contextPath }/eduAdmin/toStuSelectCourses.action">学生选课</a></li>
 				</ul>
 			</div>
 			<!-- 左边导航栏结束  -->
@@ -56,14 +57,19 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/eduAdmin/pageList.action">班级选课</a></li>
 					<li role="presentation"><a href="${pageContext.request.contextPath }/eduAdmin/toBanjiAddCourse.action">添加课程</a></li>
+				    <li role="presentation"><a href="${pageContext.request.contextPath }/eduAdmin/toStuSelectCourses.action">学生选课</a></li>
 				</ul>
 				<!-- 查询条件 开始 -->
 				<form id="searchForm" action="${pageContext.request.contextPath}/eduAdmin/seacherByCondition.action" method="post" class="form-inline" style="float: left; margin-top: 10px;margin-bottom: 10px;" >
 					<!-- 用于查找+分页 记录反的页数 -->
 					<input type="hidden" name="pageIndex" id="pageIndex" />
 					<div class="form-group"  >
-						<label for="exampleInputName2">班级：</label>
-					    <input type="text" name="bname" value="${condition.name }" class="form-control" id="exampleInputName2" placeholder="姓名">
+						<label for="exampleInputName2">班级</label>
+					    <input type="text" name="banji.bname" value="${condition.banji.bname }" class="form-control" id="exampleInputName2" placeholder="班级">
+				 	</div>
+				 	<div class="form-group"  >
+						<label for="exampleInputName2">课程</label>
+					    <input type="text" name="course.cname" value="${condition.course.cname }" class="form-control" id="exampleInputName2" placeholder="课程">
 				 	</div>
 				 	<button type="submit" class="btn btn-default">查询</button>
 				</form>
@@ -71,33 +77,24 @@
 				<!-- 学生列表开始 -->
 				<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;" >
 					<tr>
-						<td>id</td>
+						<td>班级编号</td>
 						<td>班级</td>
+						<td>课程编号</td>
 						<td>所选课程</td>
 						<td>学分</td>
 						<td>删除</td>
 					</tr>
-					<c:forEach items="${pageBean.listMap }" var="map">
-						<tr>
-							<td>${map['bc_id'] }</td>
-							<td>${map['bname'] }</td>
-							<td>${map['cname'] }</td>
-							<td>${map['credit'] }</td>
-							<td><a href="javascript:delCourse('${map['bc_id'] }')" >删除</a></td>
-							<%-- <form id="delForm" action="${pageContext.request.contextPath }/eduAdmin/delCourses.action" method="post">
-								<td>
-								<input type="hidden" name="bid" value="${banji.bid }" />
-								<c:forEach items="${bcList }" var="bc">
-									<c:if test="${bc.bname == banji.bname }">
-										<input type="checkbox" name="selectCourses" value="${bc.course_id }" />${bc.cname } 
-									</c:if>
-								</c:forEach>
-								</td>
-								
-								<td><button onclick="javascript:delCourses()"  class="btn btn-default">删除</button></td>
-								<td><a href="javascript:delCourses()" >删除</a></td>
-							</form> --%>
-						</tr>
+					<c:forEach items="${pageBean.list }" var="banji">
+						<c:forEach items="${banji.list }" var="course" >
+							<tr>
+								<td>${banji.bno}</td>
+								<td>${banji.bname}</td>
+								<td>${course.cno}</td>
+								<td>${course.cname}</td>
+								<td>${course.credit}</td>
+								<td><a href="javascript:delCourse('${banji.bid}','${course.cid }')" >删除</a></td>
+							</tr>
+						</c:forEach>
 					</c:forEach>
 				</table>
 				<!-- 学生列表结束 -->

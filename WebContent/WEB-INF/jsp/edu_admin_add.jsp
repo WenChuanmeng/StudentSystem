@@ -31,6 +31,7 @@ function addCourses() {
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation" ><a href="${pageContext.request.contextPath }/eduAdmin/pageList.action">班级管理</a></li>
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/eduAdmin/toBanjiAddCourse.action">添加班级</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/eduAdmin/toStuSelectCourses.action">学生选课</a></li>
 				</ul>
 			</div>
 			<!-- 左边导航栏结束  -->
@@ -39,6 +40,7 @@ function addCourses() {
 				<ul class="nav nav-tabs">
 					<li role="presentation" ><a href="${pageContext.request.contextPath }/eduAdmin/pageList.action">班级管理</a></li>
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/eduAdmin/toBanjiAddCourse.action">添加班级</a></li>
+					<li role="presentation" ><a href="${pageContext.request.contextPath }/eduAdmin/toStuSelectCourses.action">学生选课</a></li>
 				</ul>
 				<!-- 添加班级 开始 -->
 				<%-- <form style="margin-top: 10px;" action="${pageContext.request.contextPath }/banji/addBanJi" method="post" >
@@ -63,14 +65,14 @@ function addCourses() {
 				 			<td>班级</td>
 				 			<td>课程</td>
 				 		</tr>
-				 		<c:forEach items="${blist }" var="bl">
+				 		<c:forEach items="${bList }" var="bl">
 				 			<tr>
 					 			<td>${bl.bname }</td>
 				 					<form action="${pageContext.request.contextPath }/eduAdmin/addCourses.action" method="post">
 							 			<td>
 							 			<input type="hidden" name="bid" value="${bl.bid }" />
-							 				<c:forEach items="${clist }" var="cl">
-							 						<input type="checkbox" name="courses" value="${cl.cid }" />${cl.cname }
+							 				<c:forEach items="${cList }" var="cl">
+							 						<input type="checkbox" name="cids" value="${cl.cid }" />${cl.cname }
 							 				</c:forEach>
 							 				 <button type="submit" class="btn btn-primary">Submit</button>
 										</td>

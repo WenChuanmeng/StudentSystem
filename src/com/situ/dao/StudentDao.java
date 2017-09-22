@@ -2,6 +2,7 @@ package com.situ.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.situ.pojo.Student;
@@ -28,7 +29,7 @@ public interface StudentDao {
 	 * @param pageBean
 	 * @return List<Student>
 	 */
-	public List<Student> pageList(PageBean<Student> pageBean);
+	public List<Student> pageList(@Param("index")int index, @Param("pageSize")int pageSize);
 
 	/**
 	 * 根据条件查询有多少学生

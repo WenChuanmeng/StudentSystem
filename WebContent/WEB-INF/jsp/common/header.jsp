@@ -24,7 +24,7 @@
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎您，${user.name}  <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎您，${user.uname}  <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="#">Action</a></li>
 		            <li><a href="#">Another action</a></li>
@@ -34,7 +34,7 @@
 		          </ul>
 		        </li>
 		        <li><a href="#">当前在线<span style="color: red;">${count }</span>人</a></li>
-		        <li><a href="${pageContext.request.contextPath }/loginOut">退出</a></li>
+		        <li><a href="${pageContext.request.contextPath }/loginOut/loginOut.action">退出</a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->

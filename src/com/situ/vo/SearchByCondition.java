@@ -6,6 +6,7 @@ import java.util.Date;
 import com.situ.pojo.Banji;
 import com.situ.pojo.Course;
 import com.situ.pojo.Student;
+import com.situ.pojo.User;
 
 @SuppressWarnings("all")
 public class SearchByCondition<T> implements Serializable {
@@ -15,11 +16,23 @@ public class SearchByCondition<T> implements Serializable {
 	private Student student;
 	private Banji banji;
 	private Course course;
+	private User user;
 	
 	public SearchByCondition() {
 		super();
 		
 	}
+	
+	
+
+	public SearchByCondition(Integer pageIndex, Integer pageSize, User user) {
+		super();
+		this.pageIndex = pageIndex;
+		this.pageSize = pageSize;
+		this.user = user;
+	}
+
+
 
 	public SearchByCondition(Integer pageIndex, Integer pageSize, Student student, Banji banji, Course course) {
 		super();
@@ -50,6 +63,26 @@ public class SearchByCondition<T> implements Serializable {
 		this.pageSize = pageSize;
 		this.course = course;
 	}
+
+	
+	
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 
 	/**
 	 * @return the pageIndex
@@ -121,14 +154,18 @@ public class SearchByCondition<T> implements Serializable {
 		this.course = course;
 	}
 
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "SearchByCondition [pageIndex=" + pageIndex + ", pageSize=" + pageSize + ", student=" + student
-				+ ", banji=" + banji + ", course=" + course + "]";
+				+ ", banji=" + banji + ", course=" + course + ", user=" + user + "]";
 	}
+
+	
 	
 	
 	

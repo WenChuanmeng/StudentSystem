@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.dao.ManagerDao">
+
+	<!-- 根据id删除班级 -->
+    <delete id="delCourse" parameterType="int">
+    	DELETE FROM banji_course WHERE banji_id=#{bid} and course_id=#{cid};
+    </delete>
+
+	<!-- 查找所有的课程 -->
+	<select id="findAllCourse" resultType="Course">
+		select * from course;
+	</select>
+	
+	<!-- 添加课程表 -->
+	<insert id="addCourse" parameterType="int" >
+		INSERT INTO banji_course (banji_id,course_id) VALUES (#{bid},#{cid});
+	</insert>
+	
+	<!-- 学生Map -->
+	<resultMap type="Student" id="StudentMap">
+		<result column="sno" property="sno"/>
+		<result column="sname" property="sname"/>
+		<association property="banji" javaType="Banji">
+			<result column="bno" property="bno" />
+			<result column="bname" property="bname" />
+			<collection property="list" ofType="Course">
+				<result column="cno" property="cno" />
+				<result column="cname" property="cname" />
+				<result column="credit" property="credit" />
+			</collection>
+		</association>
+	</resultMap>
+	
+	<!-- 根据学号查询学生 -->
+	<select id="findBySno" parameterType="String" resultMap="StudentMap">
+		SELECT sno,sname,bno,bname,cno,cname,credit 
+		FROM student LEFT JOIN banji ON sbanji_id=bid 
+		LEFT JOIN banji_course ON bid=banji_id 
+		LEFT JOIN course ON course_id=cid WHERE sno=#{sno} ;
+	</select>
+	
+	
+</mapper>

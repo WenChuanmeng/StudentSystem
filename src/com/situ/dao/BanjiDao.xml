@@ -69,6 +69,9 @@
 			<if test=" banji!=null and banji.bname!=null  and !&quot;&quot;.equals(banji.bname.trim())">
     			and bname like '%${banji.bname}%'
     		</if>
+    		<if test=" course!=null and course.cname!=null  and !&quot;&quot;.equals(course.cname.trim())">
+    			and cname like '%${course.cname}%'
+    		</if>
 		</where> 
 		LIMIT #{pageIndex},#{pageSize};
     </select>

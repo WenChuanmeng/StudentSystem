@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.dao.AdminDao">
+	
+	<!-- 查询用户的额数量 -->
+	<select id="totalSize" resultType="int">
+		select COUNT(*) from user;
+	</select>
+	
+	<!-- 分页 -->
+	<select id="pageList" parameterType="int" resultType="User">
+		select * from user limit #{index},#{pageSize}
+	</select>
+	
+	<!-- 根据条件查询多少数量 -->
+	<select id="totalSizeByCondition" parameterType="SearchByCondition" resultType="int">
+		select COUNT(*) from user
+		<where>
+			<if test="user!=null and user.uname!=null  and !&quot;&quot;.equals(user.unam.trim())">
+				and uname like '${user.uname}'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据条件查询user数据 -->
+	<select id="seacherByCondition" parameterType="SearchByCondition" resultType="user" >
+		select * from user 
+		<where>
+			<if test="user!=null and user.uname!=null  and !&quot;&quot;.equals(user.uname.trim())">
+				and uname like '${user.uname}'
+			</if>
+		</where>
+		limit #{index},#{pageSize}
+	</select>
+	
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="User">
+		insert into user (uname,password,permission) values (#{uname},#{password},#{permission});
+	</insert>
+	
+	<!-- 删除用户 -->
+	<delete id="delUser" parameterType="int">
+		delete from user where uid=#{uid}
+	</delete>
+	
+	<!-- 根据id查找用户 -->
+	<select id="searchById" parameterType="int" resultType="User" >
+		select * from user where uid=#{uid}
+	</select>
+	
+	<!-- 跟新用户 -->
+	<update id="updateUSer" parameterType="User">
+		update user 
+		<set>
+			<if test="uname!=null  and !&quot;&quot;.equals(uname.trim())">
+				uname=#{uname},
+			</if>
+			<if test="password!=null  and !&quot;&quot;.equals(password.trim())">
+				password=#{password},
+			</if>
+			<if test="permission!=null">
+				permission=#{permission},
+			</if>
+		</set>
+		where uid=#{uid}
+	</update>
+	
+</mapper>

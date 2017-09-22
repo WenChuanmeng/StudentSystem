@@ -62,4 +62,5 @@ public interface IBanjiService {
 	 * @return boolean
 	 */
 	public boolean addBanJi(Banji banji);
+
 }
