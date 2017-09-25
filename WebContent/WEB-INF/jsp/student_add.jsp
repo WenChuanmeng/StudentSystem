@@ -5,9 +5,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>添加学生</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/lib/bootstrap/css/bootstrap.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath }/lib/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/lib/jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="/SSMTest/lib/jquery/jquery.form.js"></script>
+<script type="text/javascript">
+	function uploadPic() {
+		var options={
+				url : "${pageContext.request.contextPath}/student/uploadPic.action",
+				dataType : "json",
+				type : "post",
+				success : function(data) {
+					$("#imgId").attr("src", "/pic/" + data.fileName);
+					$("#imgSrc").val(data.fileName);
+				}
+		};
+		$("#form-add").ajaxSubmit(options);
+	}
+</script>
 </head>
 <body>
 	<!-- head begin -->
@@ -30,7 +45,7 @@
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath }/student/toAddStudent.action">添加学生</a></li>
 				</ul>
 				<!-- 添加学生 开始 -->
-				<form style="margin-top: 10px;" action="${pageContext.request.contextPath }/student/addStudent.action" method="post" >
+				<form style="margin-top: 10px;" id="form-add" action="${pageContext.request.contextPath }/student/addStudent.action" method="post" enctype="multipart/form-data" >
 				<div class="form-group">
 					   <label for="exampleInputEmail1">学号</label>
 					   <input type="text" name="sno" class="form-control" id="exampleInputEmail1" placeholder="学号">
@@ -68,6 +83,12 @@
 								<option value="${banji.bid }" >${banji.bname }</option>								
 							</c:forEach>
 						</select>
+				 	</div>
+				 	<div class="form-group">
+						<label for="exampleInputName2">上传头像</label>
+				 		<img alt="loading" id="imgId" src="" width="100px" height="100px" >
+				 		<input type="hidden" name="imgSrc" id="imgSrc" />
+				 		<input type="file" name="pictureFile" onchange="uploadPic();" />
 				 	</div>
 				  <button type="submit" class="btn btn-primary">Submit</button>
 				  </div>

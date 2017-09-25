@@ -16,6 +16,7 @@ public class Student implements Serializable {
 	private Date sbirthday;
 	private Integer sbanji_id;
 	private Banji banji;
+	private String imgSrc;
 	
 	public Student() {
 		super();
@@ -72,7 +73,38 @@ public class Student implements Serializable {
 		this.sbanji_id = sbanji_id;
 	}
 	
+
+	public Student(Integer sid, String sno, String sname, Integer sage, String sgender, String saddress, Date sbirthday,
+			Integer sbanji_id, Banji banji, String imgSrc) {
+		super();
+		this.sid = sid;
+		this.sno = sno;
+		this.sname = sname;
+		this.sage = sage;
+		this.sgender = sgender;
+		this.saddress = saddress;
+		this.sbirthday = sbirthday;
+		this.sbanji_id = sbanji_id;
+		this.banji = banji;
+		this.imgSrc = imgSrc;
+	}
+
 	
+	
+	
+	/**
+	 * @return the imgSrc
+	 */
+	public String getImgSrc() {
+		return imgSrc;
+	}
+
+	/**
+	 * @param imgSrc the imgSrc to set
+	 */
+	public void setImgSrc(String imgSrc) {
+		this.imgSrc = imgSrc;
+	}
 
 	/**
 	 * @return the sbanji_id
@@ -207,8 +239,10 @@ public class Student implements Serializable {
 	public String toString() {
 		return "Student [sid=" + sid + ", sno=" + sno + ", sname=" + sname + ", sage=" + sage + ", sgender=" + sgender
 				+ ", saddress=" + saddress + ", sbirthday=" + sbirthday + ", sbanji_id=" + sbanji_id + ", banji="
-				+ banji + "]";
+				+ banji + ", imgSrc=" + imgSrc + "]";
 	}
+
+	
 
 	
 	

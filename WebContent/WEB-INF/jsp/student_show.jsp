@@ -125,6 +125,7 @@
 							<td>地址</td>
 							<td>出生日期</td>
 							<td>班级</td>
+							<td>头像</td>
 							<td>删除</td>
 							<td>修改</td>
 						</tr>
@@ -140,6 +141,9 @@
 								<td>${student.saddress }</td>
 								<td>${student.sbirthday }</td>
 								<td>${student.banji.bname }</td>
+								<td>
+									<img alt="loading" src="/pic/${student.imgSrc }" width="100px" height="100px">
+								</td>
 								<td><a href="javascript:delStudent(${student.sid });">删除</a></td>
 								<td><a href="${pageContext.request.contextPath }/student/toUpdate.action?id=${student.sid}">修改</a></td>
 							</tr>

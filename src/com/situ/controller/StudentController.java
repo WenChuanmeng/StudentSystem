@@ -2,18 +2,26 @@ package com.situ.controller;
 
 
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.situ.pojo.Banji;
 import com.situ.pojo.Student;
@@ -100,7 +108,7 @@ public class StudentController {
 	//添加学生
 	@RequestMapping("/addStudent")
 	private String addStudent(Student student) {
-		
+		System.out.println(student.getImgSrc());
 		System.out.println("添加学生得信息：" + student);
 		studentService.addStudent(student);
 		return "redirect:pageList.action";
@@ -144,6 +152,28 @@ public class StudentController {
 		return "redirect:pageList.action";
 		
 	}
+	
+	//上传头像
+	@RequestMapping("/uploadPic")
+	@ResponseBody
+	private Map<String, Object> uploadPic(MultipartFile pictureFile) {
+		//随机获得name
+		String name = UUID.randomUUID().toString().replace("-", "");
+		String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
+		String fileName = name + "." +ext;
+		String filePath = "E:\\pic\\" + fileName;
+		try {
+			pictureFile.transferTo(new File(filePath));
+		} catch (IllegalStateException | IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileName", fileName);
+		return map;
+	}
+	
 	
 	//获得所有班级
 	private void getBanji(Model model) {
