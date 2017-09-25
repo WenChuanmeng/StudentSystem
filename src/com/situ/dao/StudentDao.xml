@@ -134,8 +134,11 @@
     		<if test="sbanji_id!=null">
     			sbanji_id=#{sbanji_id},
     		</if>
+    		<if test="imgSrc!=null">
+    			imgSrc=#{imgSrc},
+    		</if>
     	</set>
-    	 WHERE sid=6;
+    	 WHERE sid=#{sid};
     </update>
     
     <!-- 根据id删除学生 -->

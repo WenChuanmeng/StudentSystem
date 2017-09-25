@@ -130,6 +130,7 @@ public class StudentController {
 	@RequestMapping("/update")
 	private String update(Student student) {
 		
+		System.out.println(student.getImgSrc());
 		System.out.println("#####跟新后的学生的信息#####" + student);
 		boolean result = studentService.update(student);
 		return "redirect:pageList.action";
